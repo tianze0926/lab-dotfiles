@@ -1,0 +1,10 @@
+[user]
+    name = tianze0926
+    email = i@tianze.me
+[http]
+    proxy = socks5h://leo:AAAAAAAAAAAAAAAAAAAA@127.0.0.1:58920
+[filter "lfs"]
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
