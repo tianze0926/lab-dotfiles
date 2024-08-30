@@ -1,7 +1,7 @@
 require("folder-rules"):setup()
 
 -- https://yazi-rs.github.io/docs/tips#user-group-in-status
-function Status:owner()
+Status:children_add(function ()
 	local h = cx.active.current.hovered
 	if h == nil or ya.target_family() ~= "unix" then
 		return ui.Line({})
@@ -13,22 +13,11 @@ function Status:owner()
 		ui.Span(ya.group_name(h.cha.gid) or tostring(h.cha.gid)):fg("magenta"),
 		ui.Span(" "),
 	})
-end
+end, 500, Status.RIGHT)
 
 -- https://github.com/sxyazi/yazi/discussions/1113#discussioncomment-9645650
-function Status:time()
+Status:children_add(function ()
 	local time = cx.active.current.hovered.cha.modified
 	return ui.Span(time and os.date("%y-%m-%d %H:%M ", time // 1) or " "):fg("blue")
-end
+end, 2500, Status.LEFT)
 
-function Status:render(area)
-	self.area = area
-
-	local left = ui.Line({ self:mode(), self:size(), self:time(), self:name() })
-	local right = ui.Line({ self:owner(), self:permissions(), self:percentage(), self:position() })
-	return {
-		ui.Paragraph(area, { left }),
-		ui.Paragraph(area, { right }):align(ui.Paragraph.RIGHT),
-		table.unpack(Progress:render(area, right:width())),
-	}
-end
