@@ -5,13 +5,11 @@ function proxy_set
     set -gx http_proxy $proxy_http
     set -gx https_proxy $proxy_http
     set -gx all_proxy $proxy_http
-    git config --global http.proxy socks5h://$proxy:(cat $xray/_port_socks)
 end
 function proxy_unset
     set -e http_proxy
     set -e https_proxy
     set -e all_proxy
-    git config --global --unset http.proxy
 end
 proxy_unset
 
@@ -28,7 +26,6 @@ set -x TERM xterm-256color
 fish_add_path -P $HOME/.local/bin
 fish_add_path -P $HOME/.cargo/bin
 fish_add_path -P $HOME/.local/nvim-linux64/bin
-fish_add_path -P $HOME/.local/node-v20.12.1-linux-x64/bin
 
 alias supervisorctl="supervisorctl -c ~/.config/supervisor/supervisord.conf"
 
