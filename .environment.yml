@@ -6,3 +6,4 @@ dependencies:
   - tmux
   - fish
   - chezmoi
+  - supervisor

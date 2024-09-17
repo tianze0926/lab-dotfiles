@@ -20,6 +20,7 @@ set -e LC_ALL
 set -x TMPDIR $HOME/.tmp
 set -x TMUX_TMPDIR $TMPDIR
 set -x XDG_RUNTIME_DIR $TMPDIR/xdg_runtime_dir
+mkdir -p $XDG_RUNTIME_DIR
 
 set -x TERM xterm-256color
 
