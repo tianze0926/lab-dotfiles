@@ -12,4 +12,3 @@ for path in "${paths[@]}"; do
   fi
 done
 
-exec /bin/bash

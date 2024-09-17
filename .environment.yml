@@ -1,0 +1,8 @@
+name: utils
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12
+  - tmux
+  - fish
+  - chezmoi
