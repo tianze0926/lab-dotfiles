@@ -17,10 +17,16 @@ set -x LANG C.UTF-8
 set -e LANGUAGE
 set -e LC_ALL
 
-set -x TMPDIR $HOME/.tmp
+if test (df --output=avail /tmp | tail -n 1) -gt (df --output=avail /dev/shm | tail -n 1)
+    set -x TMPDIR /tmp
+else
+    set -x TMPDIR /dev/shm
+end
+set -x TMPDIR $TMPDIR/(whoami)
+mkdir -p $TMPDIR
 set -x TMUX_TMPDIR $TMPDIR
 set -x XDG_RUNTIME_DIR $TMPDIR/xdg_runtime_dir
-mkdir -p $XDG_RUNTIME_DIR
+mkdir -p -m 700 $XDG_RUNTIME_DIR
 
 set -x TERM xterm-256color
 
