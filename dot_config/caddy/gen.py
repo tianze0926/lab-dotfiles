@@ -4,12 +4,13 @@ import json
 import os
 
 from routes import routes
+from sensitive import config as sensitive_config
 
 
 class Caddy:
     def __init__(s):
         s.port = 62023
-        s.domain = "local.tianze.me"
+        s.domain = "local.tianze.eu.org"
         s.routes = [s.r(*args) for args in routes] + [
             s.r("file", 62022),
             s.r("code"),
@@ -68,14 +69,28 @@ config = {
             }
         },
         "tls": {
-            "certificates": {
-                "load_files": [
+            "certificates": {"automate": [f"*.{s.domain}"]},
+            "automation": {
+                "policies": [
                     {
-                        "certificate": "cert/fullchain.cer",
-                        "key": f"cert/*.{s.domain}.key",
+                        "subjects": [f"*.{s.domain}"],
+                        "issuers": [
+                            {
+                                "module": "acme",
+                                "challenges": {
+                                    "dns": {
+                                        "provider": {
+                                            "name": "cloudflare",
+                                            "api_token": sensitive_config.cloudflare_token,
+                                        },
+                                    }
+                                },
+                                "email": sensitive_config.tls_email,
+                            }
+                        ],
                     }
                 ]
-            }
+            },
         },
     },
 }
