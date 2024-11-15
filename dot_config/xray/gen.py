@@ -60,6 +60,7 @@ routing = {
         "domain:hf-mirror.com",
         "domain:mirror.ghproxy.com",
         "domain:zjiecode.com",
+        "domain:mirrors.cloud.aliyuncs.com",
     ],
 }
 
