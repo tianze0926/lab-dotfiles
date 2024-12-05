@@ -16,6 +16,7 @@ proxy_unset
 set -x LANG C.UTF-8
 set -e LANGUAGE
 set -e LC_ALL
+set -x LESSCHARSET utf-8
 
 if test (df --output=avail /tmp | tail -n 1) -gt (df --output=avail /dev/shm | tail -n 1)
     set -x TMPDIR /tmp
