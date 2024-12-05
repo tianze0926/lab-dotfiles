@@ -27,6 +27,7 @@ mkdir -p $TMPDIR
 set -x TMUX_TMPDIR $TMPDIR
 set -x XDG_RUNTIME_DIR $TMPDIR/xdg_runtime_dir
 mkdir -p -m 700 $XDG_RUNTIME_DIR
+mkdir -p $XDG_RUNTIME_DIR/caddy
 
 set -x TERM xterm-256color
 

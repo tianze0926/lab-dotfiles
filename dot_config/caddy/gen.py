@@ -14,6 +14,7 @@ class Caddy:
         s.routes = [s.r(*args) for args in routes] + [
             s.r("file", 62022),
             s.r("code"),
+            s.r("vis"),
             {
                 "handle": [{"handler": "file_server", "root": "/", "browse": {}}],
                 "terminal": True,
@@ -25,7 +26,7 @@ class Caddy:
             dial = f"127.0.0.1:{dial}"
         else:
             socket_name = dial if dial else name
-            dial = f"unix/{os.environ['TMPDIR']}/{socket_name}.sock"
+            dial = f"unix/{os.environ['XDG_RUNTIME_DIR']}/caddy/{socket_name}.sock"
         return s.h(name, [s.reverse_handler(dial)])
 
     def h(s, name, handles):
