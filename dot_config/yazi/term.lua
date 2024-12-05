@@ -1,7 +1,7 @@
 local M = {}
 
 function M.http_link(file)
-	return string.format("https://fs.local.tianze.me:62023%s", tostring(file.url))
+	return string.format("https://fs.local.tianze.eu.org:62023%s", tostring(file.url))
 end
 
 local function base64(data)

@@ -4,15 +4,17 @@ import json
 import os
 
 from routes import routes
+from sensitive import config as sensitive_config
 
 
 class Caddy:
     def __init__(s):
         s.port = 62023
-        s.domain = "local.tianze.me"
+        s.domain = "local.tianze.eu.org"
         s.routes = [s.r(*args) for args in routes] + [
             s.r("file", 62022),
             s.r("code"),
+            s.r("vis"),
             {
                 "handle": [{"handler": "file_server", "root": "/", "browse": {}}],
                 "terminal": True,
@@ -24,7 +26,7 @@ class Caddy:
             dial = f"127.0.0.1:{dial}"
         else:
             socket_name = dial if dial else name
-            dial = f"unix/{os.environ['TMPDIR']}/{socket_name}.sock"
+            dial = f"unix/{os.environ['XDG_RUNTIME_DIR']}/caddy/{socket_name}.sock"
         return s.h(name, [s.reverse_handler(dial)])
 
     def h(s, name, handles):
@@ -68,14 +70,28 @@ config = {
             }
         },
         "tls": {
-            "certificates": {
-                "load_files": [
+            "certificates": {"automate": [f"*.{s.domain}"]},
+            "automation": {
+                "policies": [
                     {
-                        "certificate": "cert/fullchain.cer",
-                        "key": f"cert/*.{s.domain}.key",
+                        "subjects": [f"*.{s.domain}"],
+                        "issuers": [
+                            {
+                                "module": "acme",
+                                "challenges": {
+                                    "dns": {
+                                        "provider": {
+                                            "name": "cloudflare",
+                                            "api_token": sensitive_config.cloudflare_token,
+                                        },
+                                    }
+                                },
+                                "email": sensitive_config.tls_email,
+                            }
+                        ],
                     }
                 ]
-            }
+            },
         },
     },
 }
