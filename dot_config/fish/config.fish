@@ -16,6 +16,7 @@ proxy_unset
 set -x LANG C.UTF-8
 set -e LANGUAGE
 set -e LC_ALL
+set -x LESSCHARSET utf-8
 
 set -x TMPDIR $HOME/.tmp
 set -x TMUX_TMPDIR $TMPDIR
