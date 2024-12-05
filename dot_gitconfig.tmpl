@@ -2,6 +2,12 @@
 	name = zhoutianze-i
 	email = zhoutianze-i@01.ai
 
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
 {{ $x := joinPath .chezmoi.homeDir ".config/xray" }}
 {{ if and .proxy (stat (joinPath $x "_username")) }} 
 [http "https://github.com"]
