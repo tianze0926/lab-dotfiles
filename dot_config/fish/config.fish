@@ -37,5 +37,11 @@ fish_add_path -P $HOME/.local/nvim-linux64/bin
 
 alias supervisorctl="supervisorctl -c ~/.config/supervisor/supervisord.conf"
 
-eval $HOME/miniforge3/bin/conda "shell.fish" hook $argv | source
-conda activate utils
+if test -z $MAMBA_ROOT_PREFIX
+    eval $HOME/miniforge3/bin/conda "shell.fish" hook $argv | source
+    conda activate utils
+else
+    # To launch new shell with micromamba enabled:
+    # env -i - "MAMBA_ROOT_PREFIX=$TMPDIR/micromamba" (which fish)
+    micromamba shell hook --shell fish --root-prefix $MAMBA_ROOT_PREFIX | source
+end
