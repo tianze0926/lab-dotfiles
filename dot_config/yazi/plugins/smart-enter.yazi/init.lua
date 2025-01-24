@@ -1,3 +1,4 @@
+--- @sync entry
 local function mime_is_media(mime)
 	if not mime then
 		return false
@@ -19,12 +20,12 @@ local function remote(file, action)
 end
 
 return {
-	entry = function(self, args)
+	entry = function(self, job)
 		local file = cx.active.current.hovered
 		if not file then
 			return
 		end
-		if args[1] == "download" then
+		if job.args[1] == "download" then
 			return remote(file, "download")
 		end
 		if file.cha.is_dir then
