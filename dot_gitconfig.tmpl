@@ -3,7 +3,7 @@
 	email = zhoutianze-i@01.ai
 
 {{ $x := joinPath .chezmoi.homeDir ".config/xray" }}
-{{ if and .proxy (stat (joinPath $x "_username")) }} 
+{{ if and .proxy_git (stat (joinPath $x "_username")) }} 
 [http "https://github.com"]
 	proxy = socks5h://{{ include (joinPath $x "_username") }}:{{ include (joinPath $x "_password") }}@127.0.0.1:{{ include (joinPath $x "_port_socks") }}
 {{ end }}

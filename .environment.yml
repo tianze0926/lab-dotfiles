@@ -7,3 +7,15 @@ dependencies:
   - fish
   - chezmoi
   - supervisor
+  - nvim
+  - fzf
+  - lazygit
+  - postgresql
+  - htop
+  - yazi
+  - gh
+  - pip
+  - pip:
+      - basedpyright
+      - ruff
+      - nvitop
