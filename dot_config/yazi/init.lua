@@ -1,7 +1,7 @@
 require("folder-rules"):setup()
 
 -- https://yazi-rs.github.io/docs/tips#user-group-in-status
-Status:children_add(function ()
+Status:children_add(function()
 	local h = cx.active.current.hovered
 	if h == nil or ya.target_family() ~= "unix" then
 		return ui.Line({})
@@ -16,8 +16,7 @@ Status:children_add(function ()
 end, 500, Status.RIGHT)
 
 -- https://github.com/sxyazi/yazi/discussions/1113#discussioncomment-9645650
-Status:children_add(function ()
-	local time = cx.active.current.hovered.cha.modified
+Status:children_add(function()
+	local time = cx.active.current.hovered.cha.mtime
 	return ui.Span(time and os.date("%y-%m-%d %H:%M ", time // 1) or " "):fg("blue")
 end, 2500, Status.LEFT)
-
