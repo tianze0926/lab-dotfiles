@@ -4,6 +4,18 @@ channels:
 dependencies:
   - python=3.12
   - tmux
-  - fish
   - chezmoi
   - supervisor
+  - yazi
+  - nvitop
+  - nvim
+  - fzf
+  - ripgrep
+  - fd-find
+  - lazygit
+  - git-lfs
+  - postgresql
+  - pip
+  - pip:
+     - pyyaml
+     - huggingface_hub

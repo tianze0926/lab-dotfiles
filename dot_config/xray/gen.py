@@ -64,21 +64,30 @@ routing = {
     ],
 }
 
-with open("_socks_port") as f:
-    socks_port = int(f.readline().strip())
+OUTBOUND = "ssh"
+OUTBOUND = "proxy"
 
-outbound = {
-    "protocol": "socks",
-    "tag": "proxy",
-    "settings": {
-        "servers": [
-            {
-                "address": "127.0.0.1",
-                "port": socks_port,
-            }
-        ]
-    },
-}
+match OUTBOUND:
+    case "ssh":
+        with open("_socks_port") as f:
+            socks_port = int(f.readline().strip())
+
+        outbound = {
+            "protocol": "socks",
+            "tag": "proxy",
+            "settings": {
+                "servers": [
+                    {
+                        "address": "127.0.0.1",
+                        "port": socks_port,
+                    }
+                ]
+            },
+        }
+    case "proxy":
+        import yaml
+        with open('proxy.yml') as f:
+            outbound = yaml.safe_load(f)
 
 config = {
     "log": {"loglevel": "warning"},
